@@ -95,7 +95,9 @@ body{
 }
 
 .tela{
-  background:linear-gradient(180deg,#1f130c 0%,#160c08 100%);
+  background:linear-gradient(180deg,rgba(31,19,12,0.35) 0%,rgba(22,12,8,0.55) 100%);
+  backdrop-filter:blur(10px) saturate(120%);
+  -webkit-backdrop-filter:blur(10px) saturate(120%);
   border:1px solid var(--gold-deep);
   border-radius:38px;
   padding:0;
@@ -103,8 +105,8 @@ body{
   overflow:hidden;
   height:760px;
   box-shadow:
-    0 0 0 1px var(--ink),
-    0 25px 60px rgba(0,0,0,0.7);
+    0 0 0 1px rgba(184,137,62,0.15),
+    0 25px 60px rgba(0,0,0,0.6);
 }
 .tela::before{
   content:'';
