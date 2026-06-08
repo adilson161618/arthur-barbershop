@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arthur's Barbershop — App Conceito ADA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&family=Inter:wght@300;400;500;600&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e0805;
+  --bg1:#1a0f0a;
+  --bg2:#241510;
+  --bg3:#2d1d14;
+  --gold:#b8893e;
+  --gold-bright:#d9a951;
+  --gold-deep:#7a5a26;
+  --wine:#6b2422;
+  --wine-bright:#a83a35;
+  --ivory:#e8dcc4;
+  --cream:#c4b393;
+  --smoke:#645c52;
+  --line:rgba(184,137,62,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--ink);color:var(--ivory);font-family:'Inter',sans-serif;}
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:30px 20px 60px;
+  background:
+    radial-gradient(ellipse at top, #2a1a10 0%, #0e0805 60%),
+    var(--ink);
+}
+
+/* Layout de apresentação — moldura tipo concept book */
+.apresentacao{
+  max-width:1280px;
+  width:100%;
+}
+
+.cabecalho-apresentacao{
+  text-align:center;
+  margin-bottom:36px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--line);
+}
+.tag-conceito{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:7px;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+.tag-conceito::before,.tag-conceito::after{
+  content:'✦';
+  margin:0 14px;
+  opacity:0.7;
+}
+.titulo-apresentacao{
+  font-family:'Playfair Display',serif;
+  font-size:38px;
+  font-weight:400;
+  color:var(--ivory);
+  letter-spacing:1px;
+  font-style:italic;
+  margin-bottom:8px;
+}
+.subtitulo-apresentacao{
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  letter-spacing:5px;
+  color:var(--cream);
+  text-transform:uppercase;
+}
+
+/* Three screens lado a lado */
+.telas-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+  margin-bottom:50px;
+}
+@media(max-width:1000px){
+  .telas-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto 50px;}
+}
+
+.tela{
+  background:linear-gradient(180deg,#1f130c 0%,#160c08 100%);
+  border:1px solid var(--gold-deep);
+  border-radius:38px;
+  padding:0;
+  position:relative;
+  overflow:hidden;
+  height:760px;
+  box-shadow:
+    0 0 0 1px var(--ink),
+    0 25px 60px rgba(0,0,0,0.7);
+}
+.tela::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:30px;
+  background:#0a0604;
+  z-index:2;
+}
+.tela::after{
+  content:'';
+  position:absolute;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:80px;
+  height:8px;
+  border-radius:5px;
+  background:#000;
+  z-index:3;
+}
+
+.tela-status{
+  position:absolute;
+  top:8px;
+  left:18px;
+  right:18px;
+  display:flex;
+  justify-content:space-between;
+  z-index:4;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  font-weight:500;
+  color:var(--ivory);
+}
+
+.tela-conteudo{
+  padding:50px 24px 24px;
+  height:100%;
+  overflow:hidden;
+  position:relative;
+}
+
+.tela-rotulo{
+  position:absolute;
+  bottom:-50px;
+  left:0;right:0;
+  text-align:center;
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:5px;
+  color:var(--gold);
+  text-transform:uppercase;
+}
+
+/* === HEADER DO APP (consistente nas 3 telas) === */
+.app-header{
+  text-align:center;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:18px;
+}
+.brand-mark{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:6px;
+}
+.brand-mark::before,.brand-mark::after{
+  content:'';
+  display:block;
+  width:30px;
+  height:1px;
+  background:var(--gold);
+}
+.brand-mark span{
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  letter-spacing:4px;
+  color:var(--gold);
+  padding:0 10px;
+}
+.brand-name{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:30px;
+  font-weight:700;
+  color:var(--ivory);
+  line-height:1;
+  margin-bottom:2px;
+}
+.brand-sub{
+  font-family:'Cinzel',serif;
+  font-size:8.5px;
+  letter-spacing:6px;
+  color:var(--cream);
+  margin-top:6px;
+}
+
+/* Tabs entre camadas */
+.camadas-tabs{
+  display:flex;
+  justify-content:center;
+  gap:0;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+  margin-bottom:20px;
+}
+.camada-tab{
+  padding:6px 12px;
+  font-family:'Cinzel',serif;
+  font-size:9.5px;
+  letter-spacing:2.5px;
+  color:var(--smoke);
+  cursor:pointer;
+  position:relative;
+}
+.camada-tab.ativa{
+  color:var(--gold);
+}
+.camada-tab.ativa::after{
+  content:'';
+  position:absolute;
+  bottom:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:30px;
+  height:2px;
+  background:var(--gold);
+}
+.camada-tab+.camada-tab::before{
+  content:'·';
+  margin-right:12px;
+  color:var(--gold-deep);
+}
+
+/* === CAMADA 1: AGENDA === */
+.section-titulo{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:18px;
+  color:var(--ivory);
+  margin-bottom:4px;
+}
+.section-sub{
+  font-family:'Cinzel',serif;
+  font-size:8.5px;
+  letter-spacing:3px;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+
+.data-bloco{
+  background:rgba(184,137,62,0.06);
+  border:1px solid var(--line);
+  padding:12px;
+  margin-bottom:10px;
+  border-left:3px solid var(--gold);
+}
+.data-titulo{
+  font-family:'Cinzel',serif;
+  font-size:10px;
+  letter-spacing:2.5px;
+  color:var(--gold);
+  margin-bottom:6px;
+  text-transform:uppercase;
+}
+.data-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  margin-bottom:8px;
+}
+.data-cell{
+  background:var(--bg3);
+  padding:8px 4px;
+  text-align:center;
+  border:1px solid transparent;
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  color:var(--cream);
+  font-weight:500;
+}
+.data-cell.disp{
+  border-color:var(--gold);
+  color:var(--gold-bright);
+  background:rgba(184,137,62,0.08);
+}
+.data-cell.ocup{
+  opacity:0.3;
+  text-decoration:line-through;
+  color:var(--smoke);
+}
+
+.agend-card{
+  background:linear-gradient(180deg,rgba(184,137,62,0.1),rgba(184,137,62,0.02));
+  border:1px solid var(--gold);
+  padding:14px;
+  margin:14px 0;
+  position:relative;
+}
+.agend-card::before{
+  content:'★';
+  position:absolute;
+  top:6px;
+  right:10px;
+  color:var(--gold);
+  opacity:0.7;
+}
+.agend-titulo{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:14px;
+  color:var(--ivory);
+  margin-bottom:6px;
+}
+.agend-info{
+  font-size:11px;
+  color:var(--cream);
+  display:flex;
+  gap:10px;
+  margin-bottom:4px;
+}
+.agend-info strong{
+  font-family:'Cinzel',serif;
+  color:var(--gold);
+  font-size:9.5px;
+  letter-spacing:1.5px;
+  font-weight:400;
+}
+
+.cta-principal{
+  display:block;
+  width:100%;
+  background:linear-gradient(180deg,var(--gold-bright),var(--gold));
+  color:var(--ink);
+  border:none;
+  padding:14px;
+  margin-top:14px;
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:3px;
+  font-weight:700;
+  text-transform:uppercase;
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+}
+
+/* === CAMADA 2: HISTÓRIA === */
+.historia-foto{
+  width:calc(100% + 48px);
+  margin:0 -24px 16px;
+  height:140px;
+  background:linear-gradient(135deg,#3a2818 0%,#1f1209 100%);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:2px solid var(--gold);
+}
+.historia-foto::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(0,0,0,0.1) 2px,rgba(0,0,0,0.1) 3px),
+    radial-gradient(ellipse at center,rgba(184,137,62,0.15),transparent 60%);
+}
+.historia-foto-icone{
+  font-family:'UnifrakturMaguntia',serif;
+  font-size:70px;
+  color:var(--gold);
+  opacity:0.6;
+  position:relative;
+  z-index:2;
+}
+.historia-foto-label{
+  position:absolute;
+  bottom:10px;
+  left:14px;
+  font-family:'IM Fell English',serif;
+  font-size:10px;
+  font-style:italic;
+  color:var(--cream);
+  letter-spacing:1px;
+  opacity:0.8;
+}
+
+.historia-narrativa{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:13px;
+  line-height:1.7;
+  color:var(--cream);
+  margin-bottom:14px;
+  text-align:left;
+}
+.historia-narrativa::first-letter{
+  font-family:'UnifrakturMaguntia',serif;
+  font-style:normal;
+  font-size:38px;
+  color:var(--gold);
+  float:left;
+  margin-right:6px;
+  line-height:0.85;
+}
+
+.linha-tempo{
+  margin:18px 0 14px;
+  padding:12px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.linha-evento{
+  display:flex;
+  gap:12px;
+  margin-bottom:10px;
+}
+.linha-ano{
+  font-family:'Cinzel',serif;
+  font-size:10px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:1px;
+  min-width:42px;
+}
+.linha-evento-texto{
+  font-size:11px;
+  color:var(--cream);
+  line-height:1.5;
+}
+
+/* === CAMADA 3: BOUTIQUE === */
+.produtos-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.produto-card{
+  background:linear-gradient(180deg,rgba(184,137,62,0.05),rgba(0,0,0,0.2));
+  border:1px solid var(--line);
+  padding:10px;
+  position:relative;
+}
+.produto-imagem{
+  height:80px;
+  background:radial-gradient(ellipse at center,rgba(184,137,62,0.2),transparent 70%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:8px;
+  position:relative;
+}
+.produto-imagem svg{
+  width:48px;
+  height:48px;
+}
+.produto-tipo{
+  font-family:'Cinzel',serif;
+  font-size:8px;
+  letter-spacing:2.5px;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:2px;
+}
+.produto-nome{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:13px;
+  color:var(--ivory);
+  line-height:1.2;
+  margin-bottom:6px;
+  min-height:32px;
+}
+.produto-preco{
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  font-weight:700;
+  color:var(--gold-bright);
+  letter-spacing:1px;
+}
+.produto-preco small{
+  font-size:8px;
+  color:var(--cream);
+  font-weight:400;
+  letter-spacing:2px;
+}
+.produto-selo{
+  position:absolute;
+  top:6px;
+  right:6px;
+  font-family:'Cinzel',serif;
+  font-size:7px;
+  background:var(--wine);
+  color:var(--ivory);
+  padding:2px 6px;
+  letter-spacing:1px;
+}
+
+/* Footer com selo ADA */
+.ada-rodape{
+  position:absolute;
+  bottom:14px;
+  left:0;right:0;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+}
+.ada-mini{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-family:'Cinzel',serif;
+  font-size:7px;
+  letter-spacing:3px;
+  color:var(--gold);
+  opacity:0.6;
+}
+.ada-mini svg{width:14px;height:14px;}
+
+/* ============ RODAPÉ DE APRESENTAÇÃO ============ */
+.notas{
+  background:rgba(184,137,62,0.04);
+  border:1px solid var(--line);
+  padding:28px 32px;
+  margin-top:30px;
+  border-left:3px solid var(--gold);
+}
+.notas-titulo{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:5px;
+  color:var(--gold);
+  margin-bottom:14px;
+  text-transform:uppercase;
+}
+.notas-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:24px;
+}
+.nota-item h4{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:15px;
+  color:var(--ivory);
+  margin-bottom:6px;
+  font-weight:400;
+}
+.nota-item p{
+  font-size:12px;
+  line-height:1.6;
+  color:var(--cream);
+}
+
+.assinatura{
+  text-align:center;
+  margin-top:40px;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+}
+.assinatura-texto{
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  letter-spacing:6px;
+  color:var(--gold);
+  margin-bottom:6px;
+}
+.assinatura-marca{
+  font-family:'UnifrakturMaguntia',serif;
+  font-size:24px;
+  color:var(--ivory);
+  letter-spacing:2px;
+}
+.assinatura-lema{
+  font-family:'Cinzel',serif;
+  font-size:8.5px;
+  letter-spacing:4px;
+  color:var(--gold);
+  opacity:0.7;
+  margin-top:4px;
+}
+</style>
+</head>
+<body>
+<div class="apresentacao">
+
+<div class="cabecalho-apresentacao">
+  <div class="tag-conceito">CONCEITO ADA · APP PROPRIETÁRIO</div>
+  <div class="titulo-apresentacao">Arthur's Barbershop</div>
+  <div class="subtitulo-apresentacao">Inspirado em Arthur Shelby · Peaky Blinders</div>
+</div>
+
+<div class="telas-grid">
+
+  <div class="tela">
+    <div class="tela-status">
+      <span>9:41</span>
+      <span>● ● ●</span>
+    </div>
+    <div class="tela-conteudo">
+      <div class="app-header">
+        <div class="brand-mark"><span>EST. MMXXVI</span></div>
+        <div class="brand-name">Arthur's</div>
+        <div class="brand-sub">★ BARBERSHOP ★</div>
+      </div>
+
+      <div class="camadas-tabs">
+        <div class="camada-tab ativa">AGENDA</div>
+        <div class="camada-tab">HISTÓRIA</div>
+        <div class="camada-tab">BOUTIQUE</div>
+      </div>
+
+      <div class="section-titulo">Reserve sua sessão</div>
+      <div class="section-sub">★ HOJE · QUARTA-FEIRA</div>
+
+      <div class="data-bloco">
+        <div class="data-titulo">Horários · Manhã</div>
+        <div class="data-grid">
+          <div class="data-cell ocup">9:00</div>
+          <div class="data-cell ocup">9:30</div>
+          <div class="data-cell disp">10:00</div>
+          <div class="data-cell disp">10:30</div>
+          <div class="data-cell ocup">11:00</div>
+          <div class="data-cell disp">11:30</div>
+        </div>
+      </div>
+
+      <div class="data-bloco">
+        <div class="data-titulo">Horários · Tarde</div>
+        <div class="data-grid">
+          <div class="data-cell disp">14:00</div>
+          <div class="data-cell ocup">14:30</div>
+          <div class="data-cell ocup">15:00</div>
+          <div class="data-cell disp">15:30</div>
+          <div class="data-cell disp">16:00</div>
+          <div class="data-cell disp">16:30</div>
+        </div>
+      </div>
+
+      <div class="agend-card">
+        <div class="agend-titulo">Sua próxima sessão</div>
+        <div class="agend-info"><strong>SEG · 15/06</strong><span>14:00</span></div>
+        <div class="agend-info"><strong>CORTE + BARBA</strong><span>com Mestre João</span></div>
+      </div>
+
+      <a href="#" class="cta-principal">Confirmar reserva</a>
+    </div>
+    <div class="ada-rodape">
+      <div class="ada-mini">
+        <svg viewBox="0 0 30 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 1 14 L 5 2 L 9 14" fill="none" stroke="#b8893e" stroke-width="1.4" stroke-linejoin="miter"/>
+          <line x1="3" y1="10" x2="7" y2="10" stroke="#b8893e" stroke-width="1"/>
+          <line x1="12" y1="2" x2="12" y2="14" stroke="#b8893e" stroke-width="1.4"/>
+          <path d="M 12 2 Q 17 2 17 8 Q 17 14 12 14" fill="none" stroke="#b8893e" stroke-width="1.4"/>
+          <path d="M 20 14 L 24 2 L 28 14" fill="none" stroke="#b8893e" stroke-width="1.4" stroke-linejoin="miter"/>
+          <line x1="22" y1="10" x2="26" y2="10" stroke="#b8893e" stroke-width="1"/>
+        </svg>
+        <span>FORJADO POR ADA</span>
+      </div>
+    </div>
+    <div class="tela-rotulo">Camada 1</div>
+  </div>
+
+  <div class="tela">
+    <div class="tela-status">
+      <span>9:41</span>
+      <span>● ● ●</span>
+    </div>
+    <div class="tela-conteudo">
+      <div class="app-header">
+        <div class="brand-mark"><span>EST. MMXXVI</span></div>
+        <div class="brand-name">Arthur's</div>
+        <div class="brand-sub">★ BARBERSHOP ★</div>
+      </div>
+
+      <div class="camadas-tabs">
+        <div class="camada-tab">AGENDA</div>
+        <div class="camada-tab ativa">HISTÓRIA</div>
+        <div class="camada-tab">BOUTIQUE</div>
+      </div>
+
+      <div class="historia-foto">
+        <div class="historia-foto-icone">A</div>
+        <div class="historia-foto-label">— fachada · 2024 —</div>
+      </div>
+
+      <div class="section-titulo">A casa do ofício</div>
+      <div class="section-sub">★ FUNDADA EM MMXXIV</div>
+
+      <p class="historia-narrativa">
+        rthur's nasceu da convicção de que cortar cabelo não é apenas técnica — é um ritual. Cada navalha, cada lâmina, cada cadeira foi escolhida com a paciência de quem entende que o tempo do cliente vale ouro.
+      </p>
+
+      <div class="linha-tempo">
+        <div class="linha-evento">
+          <div class="linha-ano">2024</div>
+          <div class="linha-evento-texto">Abertura da casa, três cadeiras, equipe formada por mestres da região oeste de Santa Catarina.</div>
+        </div>
+        <div class="linha-evento">
+          <div class="linha-ano">2025</div>
+          <div class="linha-evento-texto">Introdução da barboterapia — toalha quente, óleo de cedro e a navalha afiada à mão.</div>
+        </div>
+        <div class="linha-evento">
+          <div class="linha-ano">2026</div>
+          <div class="linha-evento-texto">Lançamento da boutique própria de pomadas e óleos artesanais.</div>
+        </div>
+      </div>
+    </div>
+    <div class="ada-rodape">
+      <div class="ada-mini">
+        <svg viewBox="0 0 30 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 1 14 L 5 2 L 9 14" fill="none" stroke="#b8893e" stroke-width="1.4" stroke-linejoin="miter"/>
+          <line x1="3" y1="10" x2="7" y2="10" stroke="#b8893e" stroke-width="1"/>
+          <line x1="12" y1="2" x2="12" y2="14" stroke="#b8893e" stroke-width="1.4"/>
+          <path d="M 12 2 Q 17 2 17 8 Q 17 14 12 14" fill="none" stroke="#b8893e" stroke-width="1.4"/>
+          <path d="M 20 14 L 24 2 L 28 14" fill="none" stroke="#b8893e" stroke-width="1.4" stroke-linejoin="miter"/>
+          <line x1="22" y1="10" x2="26" y2="10" stroke="#b8893e" stroke-width="1"/>
+        </svg>
+        <span>FORJADO POR ADA</span>
+      </div>
+    </div>
+    <div class="tela-rotulo">Camada 2</div>
+  </div>
+
+  <div class="tela">
+    <div class="tela-status">
+      <span>9:41</span>
+      <span>● ● ●</span>
+    </div>
+    <div class="tela-conteudo">
+      <div class="app-header">
+        <div class="brand-mark"><span>EST. MMXXVI</span></div>
+        <div class="brand-name">Arthur's</div>
+        <div class="brand-sub">★ BARBERSHOP ★</div>
+      </div>
+
+      <div class="camadas-tabs">
+        <div class="camada-tab">AGENDA</div>
+        <div class="camada-tab">HISTÓRIA</div>
+        <div class="camada-tab ativa">BOUTIQUE</div>
+      </div>
+
+      <div class="section-titulo">A boutique de casa</div>
+      <div class="section-sub">★ PRODUTOS ARTESANAIS</div>
+
+      <div class="produtos-grid">
+        <div class="produto-card">
+          <div class="produto-selo">NOVO</div>
+          <div class="produto-imagem">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect x="16" y="6" width="16" height="6" fill="#b8893e" rx="1"/>
+              <rect x="14" y="12" width="20" height="32" fill="none" stroke="#b8893e" stroke-width="1.5" rx="2"/>
+              <line x1="18" y1="22" x2="30" y2="22" stroke="#b8893e" stroke-width="0.8"/>
+              <line x1="18" y1="28" x2="30" y2="28" stroke="#b8893e" stroke-width="0.8"/>
+              <text x="24" y="38" font-family="serif" font-size="6" fill="#b8893e" text-anchor="middle">POMADA</text>
+            </svg>
+          </div>
+          <div class="produto-tipo">Pomada</div>
+          <div class="produto-nome">Cera de Lã Negra</div>
+          <div class="produto-preco">R$ 89 <small>· 60g</small></div>
+        </div>
+
+        <div class="produto-card">
+          <div class="produto-imagem">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 24 4 L 28 10 L 28 36 Q 28 42 24 44 Q 20 42 20 36 L 20 10 Z" fill="none" stroke="#b8893e" stroke-width="1.5"/>
+              <ellipse cx="24" cy="36" rx="4" ry="3" fill="#b8893e" opacity="0.5"/>
+              <line x1="20" y1="14" x2="28" y2="14" stroke="#b8893e" stroke-width="0.8"/>
+            </svg>
+          </div>
+          <div class="produto-tipo">Óleo</div>
+          <div class="produto-nome">Óleo de Cedro</div>
+          <div class="produto-preco">R$ 65 <small>· 30ml</small></div>
+        </div>
+
+        <div class="produto-card">
+          <div class="produto-imagem">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 6 24 L 36 24 L 38 22 L 42 24 L 38 26 L 36 24" fill="none" stroke="#b8893e" stroke-width="1.5" stroke-linejoin="round"/>
+              <line x1="6" y1="24" x2="6" y2="32" stroke="#b8893e" stroke-width="1.5"/>
+              <circle cx="6" cy="32" r="3" fill="none" stroke="#b8893e" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="produto-tipo">Lâmina</div>
+          <div class="produto-nome">Navalha Sheffield</div>
+          <div class="produto-preco">R$ 240 <small>· peça</small></div>
+        </div>
+
+        <div class="produto-card">
+          <div class="produto-selo">KIT</div>
+          <div class="produto-imagem">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="14" width="32" height="26" rx="2" fill="none" stroke="#b8893e" stroke-width="1.5"/>
+              <rect x="14" y="8" width="20" height="6" rx="1" fill="none" stroke="#b8893e" stroke-width="1"/>
+              <line x1="8" y1="22" x2="40" y2="22" stroke="#b8893e" stroke-width="0.6"/>
+              <text x="24" y="34" font-family="serif" font-size="6" fill="#b8893e" text-anchor="middle">KIT BARBA</text>
+            </svg>
+          </div>
+          <div class="produto-tipo">Conjunto</div>
+          <div class="produto-nome">Kit Mestre Barba</div>
+          <div class="produto-preco">R$ 320 <small>· caixa</small></div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--gold);opacity:0.7;">
+        ★ ENTREGA OU RETIRADA ★
+      </div>
+    </div>
+    <div class="ada-rodape">
+      <div class="ada-mini">
+        <svg viewBox="0 0 30 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 1 14 L 5 2 L 9 14" fill="none" stroke="#b8893e" stroke-width="1.4" stroke-linejoin="miter"/>
+          <line x1="3" y1="10" x2="7" y2="10" stroke="#b8893e" stroke-width="1"/>
+          <line x1="12" y1="2" x2="12" y2="14" stroke="#b8893e" stroke-width="1.4"/>
+          <path d="M 12 2 Q 17 2 17 8 Q 17 14 12 14" fill="none" stroke="#b8893e" stroke-width="1.4"/>
+          <path d="M 20 14 L 24 2 L 28 14" fill="none" stroke="#b8893e" stroke-width="1.4" stroke-linejoin="miter"/>
+          <line x1="22" y1="10" x2="26" y2="10" stroke="#b8893e" stroke-width="1"/>
+        </svg>
+        <span>FORJADO POR ADA</span>
+      </div>
+    </div>
+    <div class="tela-rotulo">Camada 3</div>
+  </div>
+
+</div>
+
+<div class="notas">
+  <div class="notas-titulo">★ Notas do Conceito</div>
+  <div class="notas-grid">
+    <div class="nota-item">
+      <h4>Estética</h4>
+      <p>Inspirado no universo Peaky Blinders — paleta terrosa com dourado envelhecido, tipografia art déco, atmosfera de catálogo vintage. A obra digital reflete o ofício artesanal da barbearia.</p>
+    </div>
+    <div class="nota-item">
+      <h4>Três camadas</h4>
+      <p>Agenda permite reservas em segundos. História narra a alma da casa, fixa o vínculo emocional. Boutique transforma o cliente em consumidor recorrente de produto artesanal.</p>
+    </div>
+    <div class="nota-item">
+      <h4>Personalização</h4>
+      <p>Nome, fotos, narrativa, produtos e horários serão substituídos pelos dados reais do estabelecimento. A estrutura permanece — a personalidade é única.</p>
+    </div>
+    <div class="nota-item">
+      <h4>Inteligência</h4>
+      <p>Confirmação automática reduz no-show. Lembrete de retorno baseado no histórico do cliente. Carrinho integrado à reserva (corte + produto na mesma compra).</p>
+    </div>
+  </div>
+</div>
+
+<div class="assinatura">
+  <div class="assinatura-texto">★ CONCEITO ASSINADO POR ★</div>
+  <div class="assinatura-marca">ADA</div>
+  <div class="assinatura-lema">ANIMA DIGITALIS ARTIS</div>
+</div>
+
+</div>
+</body>
+</html>
