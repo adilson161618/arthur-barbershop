@@ -322,89 +322,104 @@ body{
   text-decoration:none;
 }
 
-/* === CAMADA 2: HISTÓRIA === */
-.historia-foto{
-  width:calc(100% + 48px);
-  margin:0 -24px 16px;
-  height:140px;
-  background:linear-gradient(135deg,rgba(58,40,24,0.25) 0%,rgba(31,18,9,0.35) 100%);
+/* === CAMADA 2: OS MESTRES === */
+.mestre-card{
+  border:1px solid var(--line);
+  margin-bottom:14px;
+  position:relative;
+  background:linear-gradient(180deg,rgba(184,137,62,0.05),rgba(0,0,0,0.15));
+}
+.mestre-foto{
+  width:100%;
+  height:110px;
+  background:linear-gradient(135deg,rgba(58,40,24,0.4) 0%,rgba(20,10,5,0.6) 100%);
   position:relative;
   overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  border-bottom:2px solid var(--gold);
+  border-bottom:1px solid var(--line);
 }
-.historia-foto::before{
+.mestre-foto::before{
   content:'';
   position:absolute;
   inset:0;
   background:
-    repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(0,0,0,0.1) 2px,rgba(0,0,0,0.1) 3px),
-    radial-gradient(ellipse at center,rgba(184,137,62,0.15),transparent 60%);
+    repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 3px),
+    radial-gradient(ellipse at center,rgba(184,137,62,0.12),transparent 65%);
 }
-.historia-foto-icone{
-  font-family:'UnifrakturMaguntia',serif;
-  font-size:70px;
+.mestre-foto-icone{
+  font-size:42px;
   color:var(--gold);
-  opacity:0.6;
+  opacity:0.45;
   position:relative;
   z-index:2;
 }
-.historia-foto-label{
+.mestre-foto-exec{
   position:absolute;
-  bottom:10px;
-  left:14px;
+  bottom:7px;
+  left:10px;
   font-family:'IM Fell English',serif;
-  font-size:10px;
+  font-size:9px;
   font-style:italic;
   color:var(--cream);
   letter-spacing:1px;
-  opacity:0.8;
+  opacity:0.75;
+  z-index:3;
 }
-
-.historia-narrativa{
+.mestre-foto-num{
+  position:absolute;
+  top:8px;
+  right:10px;
+  font-family:'Cinzel',serif;
+  font-size:8px;
+  letter-spacing:2px;
+  color:var(--gold);
+  opacity:0.6;
+  z-index:3;
+}
+.mestre-info{
+  padding:10px 12px 12px;
+}
+.mestre-nome{
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:2px;
+  color:var(--ivory);
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+.mestre-titulo{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:11px;
+  color:var(--gold);
+  letter-spacing:1px;
+  margin-bottom:7px;
+}
+.mestre-bio{
   font-family:'Playfair Display',serif;
   font-style:italic;
-  font-size:13px;
-  line-height:1.7;
-  color:var(--cream);
-  margin-bottom:14px;
-  text-align:left;
-}
-.historia-narrativa::first-letter{
-  font-family:'UnifrakturMaguntia',serif;
-  font-style:normal;
-  font-size:38px;
-  color:var(--gold);
-  float:left;
-  margin-right:6px;
-  line-height:0.85;
-}
-
-.linha-tempo{
-  margin:18px 0 14px;
-  padding:12px 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-}
-.linha-evento{
-  display:flex;
-  gap:12px;
-  margin-bottom:10px;
-}
-.linha-ano{
-  font-family:'Cinzel',serif;
-  font-size:10px;
-  font-weight:700;
-  color:var(--gold);
-  letter-spacing:1px;
-  min-width:42px;
-}
-.linha-evento-texto{
   font-size:11px;
+  line-height:1.6;
   color:var(--cream);
-  line-height:1.5;
+  opacity:0.9;
+}
+.mestre-especialidades{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+.mestre-tag{
+  font-family:'Cinzel',serif;
+  font-size:7.5px;
+  letter-spacing:1.5px;
+  color:var(--gold-deep);
+  border:1px solid rgba(184,137,62,0.3);
+  padding:2px 7px;
+  text-transform:uppercase;
 }
 
 /* === CAMADA 3: BOUTIQUE === */
@@ -586,7 +601,7 @@ body{
 
       <div class="camadas-tabs">
         <div class="camada-tab ativa">AGENDA</div>
-        <div class="camada-tab">HISTÓRIA</div>
+        <div class="camada-tab">MESTRES</div>
         <div class="camada-tab">BOUTIQUE</div>
       </div>
 
@@ -655,34 +670,46 @@ body{
 
       <div class="camadas-tabs">
         <div class="camada-tab">AGENDA</div>
-        <div class="camada-tab ativa">HISTÓRIA</div>
+        <div class="camada-tab ativa">MESTRES</div>
         <div class="camada-tab">BOUTIQUE</div>
       </div>
 
-      <div class="historia-foto">
-        <div class="historia-foto-icone">★</div>
-        <div class="historia-foto-label">— fachada · 2024 —</div>
+      <div class="section-titulo">Os Mestres da Casa</div>
+      <div class="section-sub">★ OFÍCIO · TRADIÇÃO · PRECISÃO</div>
+
+      <div class="mestre-card">
+        <div class="mestre-foto">
+          <div class="mestre-foto-icone">✂</div>
+          <div class="mestre-foto-exec">— em execução · navalha Sheffield —</div>
+          <div class="mestre-foto-num">MESTRE I</div>
+        </div>
+        <div class="mestre-info">
+          <div class="mestre-nome">[Nome do Barbeiro]</div>
+          <div class="mestre-titulo">Mestre de Navalha · 12 anos de ofício</div>
+          <div class="mestre-bio">Aprendeu o ofício com o pai. Cada corte começa onde a maioria termina — na escolha da navalha certa para a pele certa.</div>
+          <div class="mestre-especialidades">
+            <span class="mestre-tag">Navalha</span>
+            <span class="mestre-tag">Degradê</span>
+            <span class="mestre-tag">Barba Clássica</span>
+          </div>
+        </div>
       </div>
 
-      <div class="section-titulo">A casa do ofício</div>
-      <div class="section-sub">★ FUNDADA EM MMXXIV</div>
-
-      <p class="historia-narrativa">
-        [Nome da barbearia] nasceu da convicção de que cortar cabelo não é apenas técnica — é um ritual. Cada navalha, cada lâmina, cada cadeira foi escolhida com a paciência de quem entende que o tempo do cliente vale ouro.
-      </p>
-
-      <div class="linha-tempo">
-        <div class="linha-evento">
-          <div class="linha-ano">2024</div>
-          <div class="linha-evento-texto">Abertura da casa, três cadeiras, equipe formada por mestres da região oeste de Santa Catarina.</div>
+      <div class="mestre-card">
+        <div class="mestre-foto">
+          <div class="mestre-foto-icone">✦</div>
+          <div class="mestre-foto-exec">— em execução · barboterapia —</div>
+          <div class="mestre-foto-num">MESTRE II</div>
         </div>
-        <div class="linha-evento">
-          <div class="linha-ano">2025</div>
-          <div class="linha-evento-texto">Introdução da barboterapia — toalha quente, óleo de cedro e a navalha afiada à mão.</div>
-        </div>
-        <div class="linha-evento">
-          <div class="linha-ano">2026</div>
-          <div class="linha-evento-texto">Lançamento da boutique própria de pomadas e óleos artesanais.</div>
+        <div class="mestre-info">
+          <div class="mestre-nome">[Nome do Barbeiro]</div>
+          <div class="mestre-titulo">Especialista em Barboterapia · 8 anos</div>
+          <div class="mestre-bio">Introduziu o ritual da toalha quente e óleo de cedro na casa. Para ele, o cliente não sai apenas aparado — sai renovado.</div>
+          <div class="mestre-especialidades">
+            <span class="mestre-tag">Barboterapia</span>
+            <span class="mestre-tag">Hidratação</span>
+            <span class="mestre-tag">Corte Social</span>
+          </div>
         </div>
       </div>
     </div>
@@ -716,7 +743,7 @@ body{
 
       <div class="camadas-tabs">
         <div class="camada-tab">AGENDA</div>
-        <div class="camada-tab">HISTÓRIA</div>
+        <div class="camada-tab">MESTRES</div>
         <div class="camada-tab ativa">BOUTIQUE</div>
       </div>
 
@@ -813,7 +840,7 @@ body{
     </div>
     <div class="nota-item">
       <h4>Três camadas</h4>
-      <p>Agenda permite reservas em segundos. História narra a alma da casa, fixa o vínculo emocional. Boutique transforma o cliente em consumidor recorrente de produto artesanal.</p>
+      <p>Agenda permite reservas em segundos. Mestres apresenta quem executa — foto em ação, história e especialidade. Boutique transforma o cliente em consumidor recorrente de produto artesanal.</p>
     </div>
     <div class="nota-item">
       <h4>Personalização</h4>
